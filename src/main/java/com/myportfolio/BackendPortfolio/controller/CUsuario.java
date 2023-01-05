@@ -4,8 +4,10 @@ import com.myportfolio.BackendPortfolio.model.Usuario;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.util.List;
+import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,8 +53,7 @@ public class CUsuario {
         }
         return usrServ.borrarUsuario(id_usr);
     }
-    
-    
+   
     // VERIFICO USUARIO
     public ResponseEntity<?> usuarioValido(Usuario usr, Boolean editando){
          // Campos obligatorios

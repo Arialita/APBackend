@@ -47,8 +47,8 @@ public class Usuario {
     @Column(length=255)
     private String acerca_de;
     
-    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
-   // private List<?> educacion;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Educacion> educacion;
     
     //@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
     //private List<?> trabajo;
