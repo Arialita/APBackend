@@ -4,10 +4,8 @@ import com.myportfolio.BackendPortfolio.model.Usuario;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.util.List;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,7 +35,7 @@ public class CUsuario {
     
     @PutMapping("editar/usuario/{id_usr}")
     public ResponseEntity<?> editarUsuario(@PathVariable Long id_usr, @RequestBody Usuario usuario){
-        if(!errorServ.existeUsuario(id_usr)){
+        if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
         }
         else {
@@ -48,7 +46,7 @@ public class CUsuario {
     
     @DeleteMapping("borrar/usuario/{id_usr}")
     public ResponseEntity<?> borrarUsuario(@PathVariable Long id_usr) {
-        if(!errorServ.existeUsuario(id_usr)){
+        if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
         }
         return usrServ.borrarUsuario(id_usr);

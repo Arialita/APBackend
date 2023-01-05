@@ -37,7 +37,7 @@ public class CEducacion {
     
     @PostMapping("/crear/usuario/{id_usr}/educacion")
     public ResponseEntity<?> crearUsuario(@PathVariable Long id_usr, @RequestBody Map<String, String> edu){
-        if(!errorServ.existeUsuario(id_usr)){
+        if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
         }
         
@@ -47,7 +47,7 @@ public class CEducacion {
     @PutMapping("editar/usuario/{id_usr}/educacion/{id_edu}")
     public ResponseEntity<?> editarEducacion(@PathVariable Long id_usr, @PathVariable Long id_edu, @RequestBody Map<String, String> educacion){
         
-        if(!errorServ.existeUsuario(id_usr) || !errorServ.existeEducacion(id_edu)){
+        if(!errorServ.existeSeccion(id_usr, "usuario") || !errorServ.existeSeccion(id_edu, "edu")){
             return errorServ.noExiste();
         }
         educacion.put("id_edu",id_edu.toString() );
@@ -56,7 +56,7 @@ public class CEducacion {
     
     @DeleteMapping("borrar/educacion/{id_edu}")
     public ResponseEntity<?> borrarUsuario(@PathVariable Long id_edu) {
-        if(!errorServ.existeEducacion(id_edu)){
+        if(!errorServ.existeSeccion(id_edu, "edu")){
             return errorServ.noExiste();
         }
         return eduServ.borrarEducacion(id_edu);

@@ -34,7 +34,7 @@ public class EducacionService implements IEducacionService {
     @Override
     public ResponseEntity<?> borrarEducacion(Long id_edu) {
         eduRepo.deleteById(id_edu);
-        return new ResponseEntity("Campo borrado exitosamente", HttpStatus.CREATED);
+        return new ResponseEntity("Campo borrado exitosamente", HttpStatus.OK);
     }
 
     @Override

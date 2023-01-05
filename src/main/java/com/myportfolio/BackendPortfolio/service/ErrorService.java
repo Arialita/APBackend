@@ -1,6 +1,7 @@
 package com.myportfolio.BackendPortfolio.service;
 
 import com.myportfolio.BackendPortfolio.repository.EducacionRepository;
+import com.myportfolio.BackendPortfolio.repository.TrabajoRepository;
 import com.myportfolio.BackendPortfolio.repository.UsuarioRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +19,9 @@ public class ErrorService implements IErrorService{
     
     @Autowired
     public EducacionRepository eduRepo;
+    
+    @Autowired
+    public TrabajoRepository trabRepo;
 
     @Override
     public ResponseEntity<?> campoObligatorio(String campo) {
@@ -29,16 +33,21 @@ public class ErrorService implements IErrorService{
         return new ResponseEntity(campo + " debe tener menos de " + length  + " carácteres", HttpStatus.BAD_REQUEST);
     }
 
-    @Override
-    public Boolean existeUsuario(Long id_usr) {
-        return usrRepo.existsById(id_usr);
+     @Override
+    public boolean existeSeccion(Long id, String seccion) {
+        switch (seccion) {
+            case "usuario" -> {
+                return usrRepo.existsById(id);
+            }
+            case "edu" -> {
+                return eduRepo.existsById(id);
+            }
+            case "trab" -> {
+                return trabRepo.existsById(id);
+            }
+            default -> throw new AssertionError();
+        }
     }
-    
-    @Override
-    public Boolean existeEducacion(Long id_edu) {
-        return eduRepo.existsById(id_edu);
-    }
-
 
     @Override
     public ResponseEntity<?> noExiste() {
@@ -69,7 +78,5 @@ public class ErrorService implements IErrorService{
     @Override
     public ResponseEntity<?> ordenFecha() {
         return new ResponseEntity("La fecha final viene después de la inicial", HttpStatus.BAD_REQUEST);
-    }
-
-    
+    }    
 }

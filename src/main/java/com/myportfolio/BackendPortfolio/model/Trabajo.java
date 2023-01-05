@@ -17,20 +17,20 @@ import lombok.Setter;
 
 @Getter @Setter
 @Entity
-public class Educacion {
+public class Trabajo {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id_edu;
+    private Long id_trab;
     
     @Size(min=2, max=100)
     @Column(length=100)
     @NotBlank
-    private String titulo;
+    private String puesto;
     
     @Size(min=2, max=100)
     @Column(length=100)
     @NotBlank
-    private String instituto;
+    private String compania;
     
     private LocalDate fecha_ini;
     
@@ -41,13 +41,13 @@ public class Educacion {
     @JsonIgnore
     private Usuario usuario;
 
-    public Educacion() {
+    public Trabajo() {
     }
 
-    public Educacion(Long id_edu, String titulo, String instituto, LocalDate fecha_ini, LocalDate fecha_fin) {
-        this.id_edu = id_edu;
-        this.titulo = titulo;
-        this.instituto = instituto;
+    public Trabajo(Long id_trab, String puesto, String compania, LocalDate fecha_ini, LocalDate fecha_fin) {
+        this.id_trab = id_trab;
+        this.puesto = puesto;
+        this.compania = compania;
         this.fecha_ini = fecha_ini;
         this.fecha_fin = fecha_fin;
     }
