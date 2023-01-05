@@ -1,7 +1,5 @@
 package com.myportfolio.BackendPortfolio.controller;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.myportfolio.BackendPortfolio.model.Educacion;
 import com.myportfolio.BackendPortfolio.model.Usuario;
 import com.myportfolio.BackendPortfolio.service.IEducacionService;
@@ -12,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
