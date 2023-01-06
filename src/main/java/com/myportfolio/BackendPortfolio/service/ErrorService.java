@@ -1,6 +1,8 @@
 package com.myportfolio.BackendPortfolio.service;
 
 import com.myportfolio.BackendPortfolio.repository.EducacionRepository;
+import com.myportfolio.BackendPortfolio.repository.HabilidadRepository;
+import com.myportfolio.BackendPortfolio.repository.ProyectoRepository;
 import com.myportfolio.BackendPortfolio.repository.TrabajoRepository;
 import com.myportfolio.BackendPortfolio.repository.UsuarioRepository;
 import java.time.LocalDate;
@@ -22,6 +24,12 @@ public class ErrorService implements IErrorService{
     
     @Autowired
     public TrabajoRepository trabRepo;
+    
+    @Autowired
+    public HabilidadRepository habRepo;
+    
+    @Autowired
+    public ProyectoRepository proyRepo;
 
     @Override
     public ResponseEntity<?> campoObligatorio(String campo) {
@@ -44,6 +52,12 @@ public class ErrorService implements IErrorService{
             }
             case "trab" -> {
                 return trabRepo.existsById(id);
+            }
+            case "hab" -> {
+                return habRepo.existsById(id);
+            }
+            case "proy" -> {
+                return proyRepo.existsById(id);
             }
             default -> throw new AssertionError();
         }

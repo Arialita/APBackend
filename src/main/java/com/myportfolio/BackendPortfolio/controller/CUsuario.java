@@ -24,8 +24,16 @@ public class CUsuario {
     public IErrorService errorServ; 
     
     @GetMapping("/ver/usuarios")
-    public ResponseEntity<List<Usuario>> verUsuario(){
-        return usrServ.verUsuario();
+    public ResponseEntity<List<Usuario>> verTodosUsuarios(){
+        return usrServ.verTodosUsuarios();
+    }
+    
+    @GetMapping("/ver/usuario/{id_usr}")
+    public ResponseEntity<?> verUsuario(@PathVariable Long id_usr){
+        if(!errorServ.existeSeccion(id_usr, "usuario")){
+            return errorServ.noExiste();
+        }
+        return usrServ.verUsuario(id_usr);
     }
     
     @PostMapping("/crear/usuario")

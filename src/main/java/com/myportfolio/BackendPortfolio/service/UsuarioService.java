@@ -14,8 +14,13 @@ public class UsuarioService implements IUsuarioService {
     public UsuarioRepository usrRepo;
     
     @Override
-    public ResponseEntity<List<Usuario>> verUsuario() {
+    public ResponseEntity<List<Usuario>> verTodosUsuarios() {
         return new ResponseEntity<>(usrRepo.findAll(), HttpStatus.OK);
+    }
+    
+    @Override
+    public ResponseEntity<Usuario> verUsuario(Long id_usr) {
+        return new ResponseEntity(usrRepo.findById(id_usr), HttpStatus.OK);
     }
 
     @Override

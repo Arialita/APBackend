@@ -1,20 +1,14 @@
 package com.myportfolio.BackendPortfolio.model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.util.List;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
+
 @Entity
 public class Usuario {
     @Id
@@ -47,11 +41,18 @@ public class Usuario {
     @Column(length=255)
     private String acerca_de;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Educacion> educacion;
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
     private List<Trabajo> trabajo;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Habilidad> habilidad;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Proyecto> proyecto;*/
+    
 
     public Usuario() {
     }
@@ -65,6 +66,63 @@ public class Usuario {
         this.provincia = provincia;
         this.acerca_de = acerca_de;
     }
+
+    public Long getId_usr() {
+        return id_usr;
+    }
+
+    public void setId_usr(Long id_usr) {
+        this.id_usr = id_usr;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getOcupacion() {
+        return ocupacion;
+    }
+
+    public void setOcupacion(String ocupacion) {
+        this.ocupacion = ocupacion;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getAcerca_de() {
+        return acerca_de;
+    }
+
+    public void setAcerca_de(String acerca_de) {
+        this.acerca_de = acerca_de;
+    }
+    
     
     
 }
