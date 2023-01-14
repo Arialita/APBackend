@@ -20,15 +20,13 @@ public class TrabajoService implements ITrabajoService {
     }
 
     @Override
-    public ResponseEntity<?> crearTrabajo(Trabajo trabajo) {
-        trabRepo.save(trabajo);
-        return new ResponseEntity("Campo creado exitosamente.", HttpStatus.CREATED);
+    public ResponseEntity<Trabajo> crearTrabajo(Trabajo trabajo) {
+        return new ResponseEntity(trabRepo.save(trabajo), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<?> editarTrabajo(Trabajo trabajo) {
-        trabRepo.save(trabajo);
-        return new ResponseEntity("Campo editado exitosamente.",null, HttpStatus.OK);
+    public ResponseEntity<Trabajo> editarTrabajo(Trabajo trabajo) {
+        return new ResponseEntity(trabRepo.save(trabajo),null, HttpStatus.OK);
     }
 
     @Override

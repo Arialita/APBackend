@@ -8,9 +8,9 @@ public interface ITrabajoService {
     
     public ResponseEntity<List<Trabajo>> verTrabajo();
     
-    public ResponseEntity<?> crearTrabajo(Trabajo trabajo);
+    public ResponseEntity<Trabajo> crearTrabajo(Trabajo trabajo);
     
-    public ResponseEntity<?> editarTrabajo(Trabajo trabajo);
+    public ResponseEntity<Trabajo> editarTrabajo(Trabajo trabajo);
     
     public ResponseEntity<?> borrarTrabajo(Long id_trab);
     

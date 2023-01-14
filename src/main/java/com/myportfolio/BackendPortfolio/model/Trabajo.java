@@ -36,6 +36,10 @@ public class Trabajo {
     
     private LocalDate fecha_fin;
     
+    @Size(max=255)
+    @Column(length=255)
+    private String descripcion;
+    
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_usr", referencedColumnName="id_usr", nullable = false)
     @JsonIgnore
@@ -44,11 +48,12 @@ public class Trabajo {
     public Trabajo() {
     }
 
-    public Trabajo(Long id_trab, String puesto, String compania, LocalDate fecha_ini, LocalDate fecha_fin) {
+    public Trabajo(Long id_trab, String puesto, String compania, LocalDate fecha_ini, LocalDate fecha_fin, String descripcion) {
         this.id_trab = id_trab;
         this.puesto = puesto;
         this.compania = compania;
         this.fecha_ini = fecha_ini;
         this.fecha_fin = fecha_fin;
+        this.descripcion = descripcion;
     }
 }
