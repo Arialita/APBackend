@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,13 +32,13 @@ public class Trabajo {
     @NotBlank
     private String compania;
     
-    private LocalDate fecha_ini;
-    
-    private LocalDate fecha_fin;
-    
     @Size(max=255)
     @Column(length=255)
     private String descripcion;
+    
+    private ZonedDateTime fecha_ini;
+    
+    private ZonedDateTime fecha_fin;
     
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_usr", referencedColumnName="id_usr", nullable = false)
@@ -48,7 +48,7 @@ public class Trabajo {
     public Trabajo() {
     }
 
-    public Trabajo(Long id_trab, String puesto, String compania, LocalDate fecha_ini, LocalDate fecha_fin, String descripcion) {
+    public Trabajo(Long id_trab, String puesto, String compania, ZonedDateTime fecha_ini, ZonedDateTime fecha_fin, String descripcion) {
         this.id_trab = id_trab;
         this.puesto = puesto;
         this.compania = compania;

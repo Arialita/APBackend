@@ -10,4 +10,6 @@ public interface IUsuarioService {
     public ResponseEntity<Usuario> editarUsuario(Usuario usr);
     
     public Usuario buscarUsuario(Long id_usr);
+
+    public ResponseEntity<Usuario> crearUsuario(Usuario usuario);
 }

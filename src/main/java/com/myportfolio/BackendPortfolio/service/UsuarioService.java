@@ -28,4 +28,8 @@ public class UsuarioService implements IUsuarioService {
         return usrRepo.findById(id_usr).orElse(null);
     }
     
+    @Override
+    public ResponseEntity<Usuario> crearUsuario(Usuario usuario) {
+        return new ResponseEntity(usrRepo.save(usuario), HttpStatus.CREATED);
+    }
 }

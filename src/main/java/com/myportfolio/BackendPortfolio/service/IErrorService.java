@@ -1,6 +1,6 @@
 package com.myportfolio.BackendPortfolio.service;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import org.springframework.http.ResponseEntity;
 
 public interface IErrorService {
@@ -12,7 +12,7 @@ public interface IErrorService {
     
     public ResponseEntity<?> noExiste();
     
-    public LocalDate esFechaValida(String fecha);
+    public ZonedDateTime esFechaValida(String fecha);
     
     public ResponseEntity<?> fechaInvalida();
 

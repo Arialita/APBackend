@@ -5,7 +5,9 @@ import com.myportfolio.BackendPortfolio.repository.HabilidadRepository;
 import com.myportfolio.BackendPortfolio.repository.ProyectoRepository;
 import com.myportfolio.BackendPortfolio.repository.TrabajoRepository;
 import com.myportfolio.BackendPortfolio.repository.UsuarioRepository;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -70,13 +72,16 @@ public class ErrorService implements IErrorService{
 
     
     @Override
-    public LocalDate esFechaValida(String fecha) {
-        LocalDate ld;
-        DateTimeFormatter f = DateTimeFormatter.ofPattern ( "uuuu-MM-dd" )
-                .withResolverStyle ( ResolverStyle.STRICT );
+    public ZonedDateTime esFechaValida(String fecha) {
+        String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
+        
+        
+        ZonedDateTime ld;
         try {
-            LocalDate fecha1 = LocalDate.parse ( fecha , f );
-            ld = fecha1;
+            LocalDateTime localDateTime = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            ZonedDateTime systemZoneDateTime = localDateTime.atZone(ZoneId.systemDefault());
+            ZonedDateTime date = systemZoneDateTime.withZoneSameInstant(ZoneId.of("UTC"));
+            ld = date;
         }
         catch(DateTimeParseException e){
             return null;

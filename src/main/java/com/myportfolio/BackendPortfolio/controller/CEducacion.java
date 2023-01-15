@@ -5,7 +5,7 @@ import com.myportfolio.BackendPortfolio.model.Usuario;
 import com.myportfolio.BackendPortfolio.service.IEducacionService;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.IUsuarioService;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -74,8 +74,8 @@ public class CEducacion {
         Usuario usr = usrServ.buscarUsuario(id_usr);
         
         // VERIFICO si ambas son fechas válidas
-        LocalDate fecha_ini = errorServ.esFechaValida(edu.get("fecha_ini"));
-        LocalDate fecha_fin = errorServ.esFechaValida(edu.get("fecha_fin"));
+        ZonedDateTime fecha_ini = errorServ.esFechaValida(edu.get("fecha_ini"));
+        ZonedDateTime fecha_fin = errorServ.esFechaValida(edu.get("fecha_fin"));
         
         if(fecha_ini == null || fecha_fin == null) {
             return errorServ.fechaInvalida();

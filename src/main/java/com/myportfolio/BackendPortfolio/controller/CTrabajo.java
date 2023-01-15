@@ -5,7 +5,7 @@ import com.myportfolio.BackendPortfolio.model.Usuario;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.ITrabajoService;
 import com.myportfolio.BackendPortfolio.service.IUsuarioService;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -70,9 +70,9 @@ public class CTrabajo {
         // Busco el usuario
         Usuario usr = usrServ.buscarUsuario(id_usr);
         
-        // VERIFICO si ambas son fechas válidas
-        LocalDate fecha_ini = errorServ.esFechaValida(trab.get("fecha_ini"));
-        LocalDate fecha_fin = errorServ.esFechaValida(trab.get("fecha_fin"));
+        // VERIFICO si ambas son fechas válida
+        ZonedDateTime fecha_ini = errorServ.esFechaValida(trab.get("fecha_ini"));
+        ZonedDateTime fecha_fin = errorServ.esFechaValida(trab.get("fecha_fin"));
         
         if(fecha_ini == null || fecha_fin == null) {
             return errorServ.fechaInvalida();
@@ -100,10 +100,10 @@ public class CTrabajo {
             return errorServ.longitudCampo("255", "La descripción");
         }
         
-        // Verifico que la fecha final venga después que la inicial
         if(fecha_ini.compareTo(fecha_fin) >= 0){
             return errorServ.ordenFecha();
         }
+        
         
         // Setteo trabajo
         trabajo.setPuesto(trab.get("puesto"));
@@ -111,6 +111,7 @@ public class CTrabajo {
         trabajo.setFecha_ini(fecha_ini);
         trabajo.setFecha_fin(fecha_fin);
         trabajo.setUsuario(usr);
+        trabajo.setDescripcion(trab.get("descripcion"));
         
         if(editando){
             trabajo.setId_trab(Long.valueOf(trab.get("id_trab")));
