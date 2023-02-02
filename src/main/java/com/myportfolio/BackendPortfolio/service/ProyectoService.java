@@ -21,14 +21,13 @@ public class ProyectoService implements IProyectoService {
 
     @Override
     public ResponseEntity<?> crearProyecto(Proyecto proy) {
-        proyRepo.save(proy);
-        return new ResponseEntity("Campo creado con éxito", HttpStatus.CREATED);
+        return new ResponseEntity(proyRepo.save(proy), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> editarProyecto(Proyecto proy) {
         proyRepo.save(proy);
-        return new ResponseEntity("Campo editado con éxito", HttpStatus.OK);
+        return new ResponseEntity(proyRepo.save(proy), HttpStatus.OK);
     }
 
     @Override

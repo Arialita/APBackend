@@ -22,13 +22,12 @@ public class HabilidadService implements IHabilidadService {
     @Override
     public ResponseEntity<?> crearHabilidad(Habilidad hab) {
         habRepo.save(hab);
-        return new ResponseEntity("Sección creada con éxito", HttpStatus.CREATED);
+        return new ResponseEntity(  habRepo.save(hab), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> editarHabilidad(Habilidad hab) {
-        habRepo.save(hab);
-        return new ResponseEntity("Sección editada con éxito", HttpStatus.OK);
+        return new ResponseEntity(  habRepo.save(hab), HttpStatus.OK);
     }
 
     @Override

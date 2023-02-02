@@ -21,14 +21,13 @@ public class EducacionService implements IEducacionService {
 
     @Override
     public ResponseEntity<?> crearEducacion(Educacion edu) {
-        eduRepo.save(edu);
-        return new ResponseEntity("Campo creado exitosamente", HttpStatus.CREATED);
+        return new ResponseEntity(eduRepo.save(edu), HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<?> editarEducacion(Educacion edu) {
-        eduRepo.save(edu);
-        return new ResponseEntity("Campo editado exitosamente", HttpStatus.OK);
+        Educacion temp= eduRepo.save(edu);
+        return new ResponseEntity(temp, HttpStatus.OK);
     }
 
     @Override

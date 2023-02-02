@@ -1,13 +1,12 @@
 package com.myportfolio.BackendPortfolio.controller;
 
+import com.myportfolio.BackendPortfolio.dto.TrabajoDto;
 import com.myportfolio.BackendPortfolio.model.Trabajo;
-import com.myportfolio.BackendPortfolio.model.Usuario;
+import com.myportfolio.BackendPortfolio.model.Persona;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.ITrabajoService;
-import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,43 +17,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
+@RequestMapping("/trabajo")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CTrabajo {
     @Autowired
     public ITrabajoService trabServ;
     
     @Autowired
-    public IUsuarioService usrServ;
+    public IPersonaService persoServ;
     
     @Autowired
     public IErrorService errorServ;
     
-    @GetMapping("/ver/trabajos")
+    @GetMapping("/ver")
     public ResponseEntity<List<Trabajo>> verTrabajo(){
         return trabServ.verTrabajo();
     }
     
-    @PostMapping("/crear/usuario/{id_usr}/trabajo")
-    public ResponseEntity<?> crearTrabajo(@PathVariable Long id_usr, @RequestBody Map<String, String> trabajo) {
+    @PostMapping("/crear/{id_usr}")
+    public ResponseEntity<?> crearTrabajo(@PathVariable Long id_usr, @RequestBody TrabajoDto trabajo) {
         if(!errorServ.existeSeccion(id_usr, "usuario")) {
             return errorServ.noExiste();
         }
-        return usuarioValido(trabajo, id_usr, false);
+        return usuarioValido(trabajo, id_usr, null,false);
     }
     
-    @PutMapping("/editar/usuario/{id_usr}/trabajo/{id_trab}")
-    public ResponseEntity<?> editarTrabajo(@PathVariable Long id_usr, @PathVariable Long id_trab, @RequestBody Map<String, String> trabajo) {
+    @PutMapping("/editar/{id_usr}/{id_trab}")
+    public ResponseEntity<?> editarTrabajo(@PathVariable Long id_usr, @PathVariable Long id_trab, @RequestBody TrabajoDto trabajo) {
         if(!errorServ.existeSeccion(id_usr, "usuario") || !errorServ.existeSeccion(id_trab, "trab")) {
             return errorServ.noExiste();
         }
-        trabajo.put("id_trab", id_trab.toString());
-        return usuarioValido(trabajo, id_usr, true);
+        return usuarioValido(trabajo, id_usr, id_trab, true);
     }
     
-    @DeleteMapping("borrar/trabajo/{id_trab}")
+    @DeleteMapping("/borrar/{id_trab}")
     public ResponseEntity<?> borrarTrabajo(@PathVariable Long id_trab) {
         if(!errorServ.existeSeccion(id_trab, "trab")){
             return errorServ.noExiste();
@@ -63,40 +64,43 @@ public class CTrabajo {
     }
     
     // Valido los datos ingresados
-    private ResponseEntity<?> usuarioValido(Map<String, String> trab, Long id_usr, boolean editando) {
+    private ResponseEntity<?> usuarioValido(TrabajoDto trab, Long id_usr, Long id_trab, boolean editando) {
         // Creo un trabajo vacío
         Trabajo trabajo = new Trabajo();
+        if(editando){
+            trabajo = trabServ.buscarTrabajo(id_trab);
+        }
         
         // Busco el usuario
-        Usuario usr = usrServ.buscarUsuario(id_usr);
+        Persona usr = persoServ.buscarPersona(id_usr);
         
         // VERIFICO si ambas son fechas válida
-        ZonedDateTime fecha_ini = errorServ.esFechaValida(trab.get("fecha_ini"));
-        ZonedDateTime fecha_fin = errorServ.esFechaValida(trab.get("fecha_fin"));
+        ZonedDateTime fecha_ini = errorServ.esFechaValida(trab.getFecha_ini());
+        ZonedDateTime fecha_fin = errorServ.esFechaValida(trab.getFecha_fin());
         
         if(fecha_ini == null || fecha_fin == null) {
             return errorServ.fechaInvalida();
         }
         
         // Campos obligatorios
-        if(StringUtils.isBlank(trab.get("puesto"))){
+        if(StringUtils.isBlank(trab.getPuesto())){
             return errorServ.campoObligatorio("El puesto");
         }
         
-        if(StringUtils.isBlank(trab.get("compania"))){
+        if(StringUtils.isBlank(trab.getCompania())){
             return errorServ.campoObligatorio("La compania");
         }
         
         // Verificando longitud de carácteres
-        if(StringUtils.length(trab.get("puesto")) > 100) {
+        if(StringUtils.length(trab.getPuesto()) > 100) {
             return errorServ.longitudCampo("100", "El puesto");
         }
         
-        if(StringUtils.length(trab.get("compania"))> 100) {
+        if(StringUtils.length(trab.getCompania())> 100) {
             return errorServ.longitudCampo("100", "La compania");
         }
         
-        if(StringUtils.length(trab.get("descripcion"))> 255) {
+        if(StringUtils.length(trab.getDescripcion())> 255) {
             return errorServ.longitudCampo("255", "La descripción");
         }
         
@@ -106,15 +110,14 @@ public class CTrabajo {
         
         
         // Setteo trabajo
-        trabajo.setPuesto(trab.get("puesto"));
-        trabajo.setCompania(trab.get("compania"));
+        trabajo.setPuesto(trab.getPuesto());
+        trabajo.setCompania(trab.getCompania());
         trabajo.setFecha_ini(fecha_ini);
         trabajo.setFecha_fin(fecha_fin);
         trabajo.setUsuario(usr);
-        trabajo.setDescripcion(trab.get("descripcion"));
+        trabajo.setDescripcion(trab.getDescripcion());
         
         if(editando){
-            trabajo.setId_trab(Long.valueOf(trab.get("id_trab")));
             return trabServ.editarTrabajo(trabajo);
         }
         return trabServ.crearTrabajo(trabajo);

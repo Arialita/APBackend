@@ -37,9 +37,9 @@ public class Educacion {
     private ZonedDateTime fecha_fin;
     
     @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="id_usr", referencedColumnName="id_usr", nullable = false)
+    @JoinColumn(name="id_usr", referencedColumnName="idUsr", nullable = false)
     @JsonIgnore
-    private Usuario usuario;
+    private Persona usuario;
 
     public Educacion() {
     }

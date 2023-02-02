@@ -3,7 +3,6 @@ package com.myportfolio.BackendPortfolio.controller;
 import com.myportfolio.BackendPortfolio.model.Habilidad;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.IHabilidadService;
-import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,26 +14,29 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
+@RequestMapping("/habilidad")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CHabilidad {
     @Autowired
     public IHabilidadService habServ;
     
     @Autowired
-    public IUsuarioService usrServ;
+    public IPersonaService usrServ;
     
     @Autowired
     public IErrorService errorServ;
     
-    @GetMapping("/ver/habilidad")
+    @GetMapping("/ver")
     public ResponseEntity<List<Habilidad>> verHabilidad(){
         return habServ.verHabilidad();
     }
     
-    @PostMapping("/crear/usuario/{id_usr}/habilidad")
+    @PostMapping("/crear/{id_usr}")
     public ResponseEntity<?> crearHab(@PathVariable Long id_usr, @RequestBody Habilidad hab) {
         if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
@@ -42,7 +44,7 @@ public class CHabilidad {
         return seccionValida(hab, id_usr, false);
     }
     
-    @PutMapping("/editar/usuario/{id_usr}/habilidad/{id_hab}")
+    @PutMapping("/editar/{id_usr}/{id_hab}")
     public ResponseEntity<?> editarHabilidad(@PathVariable Long id_usr, @PathVariable Long id_hab, @RequestBody Habilidad hab) {
         if(!errorServ.existeSeccion(id_usr, "usuario")|| !errorServ.existeSeccion(id_hab, "hab")){
             return errorServ.noExiste();
@@ -51,7 +53,7 @@ public class CHabilidad {
         return seccionValida(hab, id_usr, true);
     }
     
-    @DeleteMapping("/borrar/habilidad/{id_hab}")
+    @DeleteMapping("/borrar/{id_hab}")
     public ResponseEntity<?> borrarHabilidad (@PathVariable Long id_hab) {
         if(!errorServ.existeSeccion(id_hab, "hab")){
             return errorServ.noExiste();
@@ -60,7 +62,7 @@ public class CHabilidad {
     }
 
     private ResponseEntity<?> seccionValida(Habilidad hab, Long id_usr, boolean editando) {
-        hab.setUsuario(usrServ.buscarUsuario(id_usr));
+        hab.setUsuario(usrServ.buscarPersona(id_usr));
         
         if(StringUtils.isBlank(hab.getNombre_hab())) {
             return errorServ.campoObligatorio("La habilidad");

@@ -4,7 +4,6 @@ import com.myportfolio.BackendPortfolio.repository.EducacionRepository;
 import com.myportfolio.BackendPortfolio.repository.HabilidadRepository;
 import com.myportfolio.BackendPortfolio.repository.ProyectoRepository;
 import com.myportfolio.BackendPortfolio.repository.TrabajoRepository;
-import com.myportfolio.BackendPortfolio.repository.UsuarioRepository;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -15,11 +14,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.myportfolio.BackendPortfolio.repository.PersonaRepository;
 
 @Service
 public class ErrorService implements IErrorService{
     @Autowired
-    public UsuarioRepository usrRepo;
+    public PersonaRepository usrRepo;
     
     @Autowired
     public EducacionRepository eduRepo;
@@ -73,12 +73,12 @@ public class ErrorService implements IErrorService{
     
     @Override
     public ZonedDateTime esFechaValida(String fecha) {
-        String DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
+        String DATE_FORMAT = "dd/MM/uuuu HH:mm:ss";
         
         
         ZonedDateTime ld;
         try {
-            LocalDateTime localDateTime = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern(DATE_FORMAT));
+            LocalDateTime localDateTime = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern(DATE_FORMAT).withResolverStyle(ResolverStyle.STRICT));
             ZonedDateTime systemZoneDateTime = localDateTime.atZone(ZoneId.systemDefault());
             ZonedDateTime date = systemZoneDateTime.withZoneSameInstant(ZoneId.of("UTC"));
             ld = date;

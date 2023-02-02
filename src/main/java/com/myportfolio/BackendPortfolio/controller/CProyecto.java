@@ -3,7 +3,6 @@ package com.myportfolio.BackendPortfolio.controller;
 import com.myportfolio.BackendPortfolio.model.Proyecto;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.IProyectoService;
-import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
+@RequestMapping("/proyecto")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CProyecto {
     
@@ -25,17 +27,17 @@ public class CProyecto {
     public IProyectoService proyServ;
     
     @Autowired
-    public IUsuarioService usrServ;
+    public IPersonaService usrServ;
     
     @Autowired
     public IErrorService errorServ;
     
-    @GetMapping("/ver/proyecto")
+    @GetMapping("/ver")
     public ResponseEntity<List<Proyecto>> verProyecto(){
         return proyServ.verProyecto();
     }
     
-    @PostMapping("/crear/usuario/{id_usr}/proyecto")
+    @PostMapping("/crear/{id_usr}")
     public ResponseEntity<?> crearProyecto(@PathVariable Long id_usr, @RequestBody Proyecto proy) {
         if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
@@ -43,7 +45,7 @@ public class CProyecto {
         return seccionValida(proy, id_usr, false);
     }
     
-    @PutMapping("/editar/usuario/{id_usr}/proyecto/{id_proy}")
+    @PutMapping("/editar/{id_usr}/{id_proy}")
     public ResponseEntity<?> editarProyecto(@PathVariable Long id_usr, @PathVariable Long id_proy, @RequestBody Proyecto proy) {
         if(!errorServ.existeSeccion(id_usr, "usuario") || !errorServ.existeSeccion(id_proy, "proy")){
             return errorServ.noExiste();
@@ -52,13 +54,13 @@ public class CProyecto {
         return seccionValida(proy, id_usr, true);
     }
     
-    @DeleteMapping("/borrar/proyecto/{id_proy}")
+    @DeleteMapping("/borrar/{id_proy}")
     public ResponseEntity<?> borrarProyecto (@PathVariable Long id_proy) {
         return proyServ.borrarProyecto(id_proy);
     }
 
     private ResponseEntity<?> seccionValida(Proyecto proy, Long id_usr, boolean editando) {
-        proy.setUsuario(usrServ.buscarUsuario(id_usr));
+        proy.setUsuario(usrServ.buscarPersona(id_usr));
         
         if(StringUtils.isBlank(proy.getNombre_proyecto())) {
             return errorServ.campoObligatorio("El nombre del proyecto");

@@ -1,10 +1,9 @@
 package com.myportfolio.BackendPortfolio.controller;
 
 import com.myportfolio.BackendPortfolio.model.Educacion;
-import com.myportfolio.BackendPortfolio.model.Usuario;
+import com.myportfolio.BackendPortfolio.model.Persona;
 import com.myportfolio.BackendPortfolio.service.IEducacionService;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
-import com.myportfolio.BackendPortfolio.service.IUsuarioService;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -18,9 +17,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
+@RequestMapping("/educacion")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CEducacion {
     @Autowired
@@ -30,14 +32,14 @@ public class CEducacion {
     public IErrorService errorServ;
     
     @Autowired
-    public IUsuarioService usrServ;
+    public IPersonaService usrServ;
     
-    @GetMapping("/ver/educacion")
+    @GetMapping("/ver")
     public ResponseEntity<List<Educacion>> verEducacion(){
         return eduServ.verEducacion();
     }
     
-    @PostMapping("/crear/usuario/{id_usr}/educacion")
+    @PostMapping("/crear/{id_usr}")
     public ResponseEntity<?> crearUsuario(@PathVariable Long id_usr, @RequestBody Map<String, String> edu){
         if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
@@ -46,7 +48,7 @@ public class CEducacion {
         return usuarioValido(edu, false, id_usr);
     }
     
-    @PutMapping("editar/usuario/{id_usr}/educacion/{id_edu}")
+    @PutMapping("editar/{id_usr}/{id_edu}")
     public ResponseEntity<?> editarEducacion(@PathVariable Long id_usr, @PathVariable Long id_edu, @RequestBody Map<String, String> educacion){
         
         if(!errorServ.existeSeccion(id_usr, "usuario") || !errorServ.existeSeccion(id_edu, "edu")){
@@ -56,7 +58,7 @@ public class CEducacion {
         return usuarioValido(educacion, true, id_usr);
     }
     
-    @DeleteMapping("borrar/educacion/{id_edu}")
+    @DeleteMapping("borrar/{id_edu}")
     public ResponseEntity<?> borrarUsuario(@PathVariable Long id_edu) {
         if(!errorServ.existeSeccion(id_edu, "edu")){
             return errorServ.noExiste();
@@ -71,7 +73,7 @@ public class CEducacion {
         Educacion educacion = new Educacion();
         
         // Busco a qué usuario pertence
-        Usuario usr = usrServ.buscarUsuario(id_usr);
+        Persona usr = usrServ.buscarPersona(id_usr);
         
         // VERIFICO si ambas son fechas válidas
         ZonedDateTime fecha_ini = errorServ.esFechaValida(edu.get("fecha_ini"));
