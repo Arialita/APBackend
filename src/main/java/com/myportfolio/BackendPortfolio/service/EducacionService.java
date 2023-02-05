@@ -15,7 +15,7 @@ public class EducacionService implements IEducacionService {
     public EducacionRepository eduRepo;
     
     @Override
-    public ResponseEntity<List<Educacion>> verEducacion() {
+    public ResponseEntity<List<Educacion>> verEducaciones() {
         return new ResponseEntity(eduRepo.findAll(), HttpStatus.OK);
     }
 
@@ -33,12 +33,17 @@ public class EducacionService implements IEducacionService {
     @Override
     public ResponseEntity<?> borrarEducacion(Long id_edu) {
         eduRepo.deleteById(id_edu);
-        return new ResponseEntity("Campo borrado exitosamente", HttpStatus.OK);
+        return new ResponseEntity(eduRepo.findAll(), HttpStatus.OK);
     }
 
     @Override
     public Educacion buscarEducacion(Long id_edu) {
         return eduRepo.findById(id_edu).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<Educacion> verEducacion(Long id_edu) {
+        return new ResponseEntity(eduRepo.findById(id_edu).orElse(null), HttpStatus.OK);
     }
     
 }

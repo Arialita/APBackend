@@ -1,7 +1,6 @@
 package com.myportfolio.BackendPortfolio.dto;
 
 public class TrabajoDto {
-    private Long id_trab;
     
     private String puesto;
     
@@ -61,15 +60,6 @@ public class TrabajoDto {
 
     public void setFecha_fin(String fecha_fin) {
         this.fecha_fin = fecha_fin;
-    }
-
-    public Long getId_trab() {
-        return id_trab;
-    }
-
-    public void setId_trab(Long id_trab) {
-        this.id_trab = id_trab;
-    }
-    
+    }  
      
 }

@@ -15,7 +15,7 @@ public class HabilidadService implements IHabilidadService {
     public HabilidadRepository habRepo;
     
     @Override
-    public ResponseEntity<List<Habilidad>> verHabilidad() {
+    public ResponseEntity<List<Habilidad>> verHabilidades() {
         return new ResponseEntity(habRepo.findAll(), HttpStatus.OK);
     }
 
@@ -33,12 +33,17 @@ public class HabilidadService implements IHabilidadService {
     @Override
     public ResponseEntity<?> borrarHabilidad(Long id_hab) {
         habRepo.deleteById(id_hab);
-        return new ResponseEntity("Sección borrada con éxito", HttpStatus.OK);
+        return new ResponseEntity(habRepo.findAll(), HttpStatus.OK);
     }
 
     @Override
     public Habilidad buscarHabilidad(Long id_hab) {
         return habRepo.findById(id_hab).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<Habilidad> verHabilidad(Long id_hab) {
+        return new ResponseEntity(habRepo.findById(id_hab).orElse(null),HttpStatus.OK);
     }
     
 }

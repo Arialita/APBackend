@@ -35,8 +35,13 @@ public class CTrabajo {
     public IErrorService errorServ;
     
     @GetMapping("/ver")
-    public ResponseEntity<List<Trabajo>> verTrabajo(){
-        return trabServ.verTrabajo();
+    public ResponseEntity<List<Trabajo>> verTrabajos(){
+        return trabServ.verTrabajos();
+    }
+    
+    @GetMapping("/ver/{id_trab}")
+    public ResponseEntity<Trabajo> verTrabajo(@PathVariable Long id_trab){
+        return trabServ.verTrabajo(id_trab);
     }
     
     @PostMapping("/crear/{id_usr}")
@@ -114,7 +119,7 @@ public class CTrabajo {
         trabajo.setCompania(trab.getCompania());
         trabajo.setFecha_ini(fecha_ini);
         trabajo.setFecha_fin(fecha_fin);
-        trabajo.setUsuario(usr);
+        trabajo.setPersona(usr);
         trabajo.setDescripcion(trab.getDescripcion());
         
         if(editando){

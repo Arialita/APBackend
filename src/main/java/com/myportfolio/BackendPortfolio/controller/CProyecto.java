@@ -33,8 +33,13 @@ public class CProyecto {
     public IErrorService errorServ;
     
     @GetMapping("/ver")
-    public ResponseEntity<List<Proyecto>> verProyecto(){
-        return proyServ.verProyecto();
+    public ResponseEntity<List<Proyecto>> verProyectos(){
+        return proyServ.verProyectos();
+    }
+    
+    @GetMapping("/ver/{id_proy}")
+    public ResponseEntity<Proyecto> verProyecto(@PathVariable Long id_proy){
+        return proyServ.verProyecto(id_proy);
     }
     
     @PostMapping("/crear/{id_usr}")
@@ -42,7 +47,7 @@ public class CProyecto {
         if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
         }
-        return seccionValida(proy, id_usr, false);
+        return seccionValida(proy, id_usr, false, null);
     }
     
     @PutMapping("/editar/{id_usr}/{id_proy}")
@@ -50,8 +55,7 @@ public class CProyecto {
         if(!errorServ.existeSeccion(id_usr, "usuario") || !errorServ.existeSeccion(id_proy, "proy")){
             return errorServ.noExiste();
         }
-        proy.setId_proyecto(id_proy);
-        return seccionValida(proy, id_usr, true);
+        return seccionValida(proy, id_usr, true, id_proy);
     }
     
     @DeleteMapping("/borrar/{id_proy}")
@@ -59,8 +63,11 @@ public class CProyecto {
         return proyServ.borrarProyecto(id_proy);
     }
 
-    private ResponseEntity<?> seccionValida(Proyecto proy, Long id_usr, boolean editando) {
-        proy.setUsuario(usrServ.buscarPersona(id_usr));
+    private ResponseEntity<?> seccionValida(Proyecto proy, Long id_usr, boolean editando, Long id_proy) {
+        Proyecto temp = new Proyecto();
+        if(editando){
+            temp = proyServ.buscarProyecto(id_proy);
+        }
         
         if(StringUtils.isBlank(proy.getNombre_proyecto())) {
             return errorServ.campoObligatorio("El nombre del proyecto");
@@ -73,10 +80,15 @@ public class CProyecto {
             return errorServ.longitudCampo("255", "La URL");
         }
         
-        if(editando){
-            return proyServ.editarProyecto(proy);
+        if(!editando){
+            proy.setPersona(usrServ.buscarPersona(id_usr));
+            return proyServ.crearProyecto(proy);
         }
         
-        return proyServ.crearProyecto(proy);
+        temp.setLenguaje(proy.getLenguaje());
+        temp.setNombre_proyecto(proy.getNombre_proyecto());
+        temp.setUrl(proy.getUrl());
+        
+        return proyServ.editarProyecto(temp);
     }
 }

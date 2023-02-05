@@ -1,5 +1,6 @@
 package com.myportfolio.BackendPortfolio.service;
 
+import com.myportfolio.BackendPortfolio.dto.PersonaDto;
 import com.myportfolio.BackendPortfolio.model.Persona;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +19,9 @@ public class PersonaService implements IPersonaService {
     }
     
     @Override
-    public ResponseEntity<Persona> editarPersona(Persona persona) {
-        
-        return new ResponseEntity(usrRepo.save(persona), HttpStatus.OK);
+    public ResponseEntity<Persona> editarPersona(Persona persona, Long id_usr) {
+        usrRepo.save(persona);
+        return new ResponseEntity(usrRepo.findById(id_usr).orElse(null), HttpStatus.OK);
     }
     
     @Override
@@ -34,7 +35,7 @@ public class PersonaService implements IPersonaService {
     }
 
     @Override
-    public ResponseEntity<?> verPersonaDto(Long idUsr) {
+    public ResponseEntity<PersonaDto> verPersonaDto(Long idUsr) {
         return new ResponseEntity(usrRepo.findPersonaDtoByIdUsr(idUsr), HttpStatus.OK);
     }
 }

@@ -15,7 +15,7 @@ public class TrabajoService implements ITrabajoService {
     public TrabajoRepository trabRepo;
             
     @Override
-    public ResponseEntity<List<Trabajo>> verTrabajo() {
+    public ResponseEntity<List<Trabajo>> verTrabajos() {
         return new ResponseEntity(trabRepo.findAll(), HttpStatus.OK);
     }
 
@@ -32,12 +32,17 @@ public class TrabajoService implements ITrabajoService {
     @Override
     public ResponseEntity<?> borrarTrabajo(Long id_trab) {
         trabRepo.deleteById(id_trab);
-        return new ResponseEntity("Campo borrado exitosamente.", HttpStatus.OK);
+        return new ResponseEntity(trabRepo.findAll(), HttpStatus.OK);
     }
 
     @Override
     public Trabajo buscarTrabajo(Long id_trab) {
         return trabRepo.findById(id_trab).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<Trabajo> verTrabajo(Long id_trab) {
+        return new ResponseEntity(trabRepo.findById(id_trab).orElse(null), HttpStatus.OK);
     }
     
 }

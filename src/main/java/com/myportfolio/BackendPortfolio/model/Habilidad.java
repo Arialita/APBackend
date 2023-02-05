@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,23 +27,27 @@ public class Habilidad {
     @NotBlank
     private String nombre_hab;
     
-    @Size(max=20)
-    @Column(length=20)
+    @NotNull
+    private Long nivel;
+    
+    @Size(max = 100)
+    @Column(length=100)
     @NotBlank
-    private String nivel;
+    private String nivel_nombre;
     
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "id_usr", referencedColumnName = "idUsr", nullable = false)
     @JsonIgnore
-    private Persona usuario;
+    private Persona persona;
 
     public Habilidad() {
     }
 
-    public Habilidad(Long id_hab, String nombre_hab, String nivel) {
+    public Habilidad(Long id_hab, String nombre_hab, Long nivel, String nivel_nombre) {
         this.id_hab = id_hab;
         this.nombre_hab = nombre_hab;
         this.nivel = nivel;
+        this.nivel_nombre = nivel_nombre;
     }
 
     

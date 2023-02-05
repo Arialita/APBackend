@@ -32,8 +32,13 @@ public class CHabilidad {
     public IErrorService errorServ;
     
     @GetMapping("/ver")
-    public ResponseEntity<List<Habilidad>> verHabilidad(){
-        return habServ.verHabilidad();
+    public ResponseEntity<List<Habilidad>> verHabilidades(){
+        return habServ.verHabilidades();
+    }
+    
+    @GetMapping("/ver/{id_hab}")
+    public ResponseEntity<Habilidad> verHabilidad(@PathVariable Long id_hab){
+        return habServ.verHabilidad(id_hab);
     }
     
     @PostMapping("/crear/{id_usr}")
@@ -41,7 +46,7 @@ public class CHabilidad {
         if(!errorServ.existeSeccion(id_usr, "usuario")){
             return errorServ.noExiste();
         }
-        return seccionValida(hab, id_usr, false);
+        return seccionValida(hab, id_usr, false, null);
     }
     
     @PutMapping("/editar/{id_usr}/{id_hab}")
@@ -49,8 +54,7 @@ public class CHabilidad {
         if(!errorServ.existeSeccion(id_usr, "usuario")|| !errorServ.existeSeccion(id_hab, "hab")){
             return errorServ.noExiste();
         }
-        hab.setId_hab(id_hab);
-        return seccionValida(hab, id_usr, true);
+        return seccionValida(hab, id_usr, true, id_hab);
     }
     
     @DeleteMapping("/borrar/{id_hab}")
@@ -61,9 +65,11 @@ public class CHabilidad {
         return habServ.borrarHabilidad(id_hab);
     }
 
-    private ResponseEntity<?> seccionValida(Habilidad hab, Long id_usr, boolean editando) {
-        hab.setUsuario(usrServ.buscarPersona(id_usr));
-        
+    private ResponseEntity<?> seccionValida(Habilidad hab, Long id_usr, boolean editando, Long id_hab) {
+        Habilidad temp = new Habilidad();
+        if(editando){
+            temp = habServ.buscarHabilidad(id_hab);
+        }
         if(StringUtils.isBlank(hab.getNombre_hab())) {
             return errorServ.campoObligatorio("La habilidad");
         }
@@ -76,14 +82,20 @@ public class CHabilidad {
             return errorServ.longitudCampo("100", "La habilidad");
         }
         
-        if(StringUtils.length(hab.getNivel()) > 20) {
-            return errorServ.longitudCampo("20", "El grado de conocimiento");
+        if(StringUtils.length(hab.getNivel_nombre()) > 100) {
+            return errorServ.longitudCampo("100", "El grado de conocimiento");
         }
         
-        if(editando) {
-            return habServ.editarHabilidad(hab);
+        if(!editando) {
+            hab.setPersona(usrServ.buscarPersona(id_usr));
+            return habServ.crearHabilidad(hab);
         }
         
-        return habServ.crearHabilidad(hab);
+        temp.setNivel(hab.getNivel());
+        temp.setNivel_nombre(hab.getNivel_nombre());
+        temp.setNombre_hab(hab.getNombre_hab());
+        
+        return habServ.editarHabilidad(temp);
+        
     }
 }

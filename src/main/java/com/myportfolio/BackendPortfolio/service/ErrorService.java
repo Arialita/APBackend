@@ -73,7 +73,7 @@ public class ErrorService implements IErrorService{
     
     @Override
     public ZonedDateTime esFechaValida(String fecha) {
-        String DATE_FORMAT = "dd/MM/uuuu HH:mm:ss";
+        String DATE_FORMAT = "uuuu-MM-dd HH:mm:ss";
         
         
         ZonedDateTime ld;

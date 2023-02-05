@@ -79,12 +79,12 @@ public class CPersona {
         
         persona.setIdUsr(id_usr);
         
-        return usrServ.editarPersona(persona);
+        return usrServ.editarPersona(persona, id_usr);
     }
     
-    @PostMapping("/crear")
+    /**@PostMapping("/crear")
     public ResponseEntity<Persona> crearPersona(@RequestBody Persona persona) {
         return usrServ.crearPersona(persona);
-    }
+    }**/
     
 }

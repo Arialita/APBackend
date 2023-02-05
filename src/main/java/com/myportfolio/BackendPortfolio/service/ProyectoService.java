@@ -15,7 +15,7 @@ public class ProyectoService implements IProyectoService {
     public ProyectoRepository proyRepo;
     
     @Override
-    public ResponseEntity<List<Proyecto>> verProyecto() {
+    public ResponseEntity<List<Proyecto>> verProyectos() {
         return new ResponseEntity(proyRepo.findAll(), HttpStatus.OK);
     }
 
@@ -26,18 +26,22 @@ public class ProyectoService implements IProyectoService {
 
     @Override
     public ResponseEntity<?> editarProyecto(Proyecto proy) {
-        proyRepo.save(proy);
         return new ResponseEntity(proyRepo.save(proy), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<?> borrarProyecto(Long id_proy) {
         proyRepo.deleteById(id_proy);
-        return new ResponseEntity("Campo borrado con éxito", HttpStatus.OK);
+        return new ResponseEntity(proyRepo.findAll(), HttpStatus.OK);
     }
 
     @Override
     public Proyecto buscarProyecto(Long id_proy) {
         return proyRepo.findById(id_proy).orElse(null);
+    }
+
+    @Override
+    public ResponseEntity<Proyecto> verProyecto(Long id_proy) {
+        return new ResponseEntity(proyRepo.findById(id_proy).orElse(null), HttpStatus.OK);
     }
 }

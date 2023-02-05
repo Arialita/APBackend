@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 public interface IEducacionService {
-    public ResponseEntity<List<Educacion>> verEducacion();
+    public ResponseEntity<List<Educacion>> verEducaciones();
+    
+    public ResponseEntity<Educacion> verEducacion(Long id_edu);
     
     public ResponseEntity<?> crearEducacion(Educacion edu);
     

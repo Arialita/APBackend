@@ -30,18 +30,25 @@ public class Proyecto {
     @Column(length=255)
     private String url;
     
+    @Size(max=255)
+    @Column(length=255)
+    private String lenguaje;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usr", referencedColumnName = "idUsr", nullable = false)
     @JsonIgnore
-    private Persona usuario;
+    private Persona persona;
 
     public Proyecto() {
     }
 
-    public Proyecto(Long id_proyecto, String nombre_proyecto, String url) {
+    public Proyecto(Long id_proyecto, String nombre_proyecto, String url, String lenguaje) {
         this.id_proyecto = id_proyecto;
         this.nombre_proyecto = nombre_proyecto;
         this.url = url;
+        this.lenguaje = lenguaje;
     }
+
+    
     
 }

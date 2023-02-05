@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 public interface ITrabajoService {
     
-    public ResponseEntity<List<Trabajo>> verTrabajo();
+    public ResponseEntity<List<Trabajo>> verTrabajos();
+    
+    public ResponseEntity<Trabajo> verTrabajo(Long id_trab);
     
     public ResponseEntity<Trabajo> crearTrabajo(Trabajo trabajo);
     

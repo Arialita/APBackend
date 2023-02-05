@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 public interface IProyectoService {
-    public ResponseEntity<List<Proyecto>> verProyecto();
+    public ResponseEntity<List<Proyecto>> verProyectos();
+    
+    public ResponseEntity<Proyecto> verProyecto(Long id_proy);
     
     public ResponseEntity<?> crearProyecto(Proyecto proy);
     

@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 public interface IHabilidadService {
-    public ResponseEntity<List<Habilidad>> verHabilidad();
+    public ResponseEntity<List<Habilidad>> verHabilidades();
+    
+    public ResponseEntity<Habilidad> verHabilidad(Long id_hab);
     
     public ResponseEntity<?> crearHabilidad(Habilidad hab);
     

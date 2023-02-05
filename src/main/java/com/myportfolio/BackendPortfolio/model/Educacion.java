@@ -39,7 +39,7 @@ public class Educacion {
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="id_usr", referencedColumnName="idUsr", nullable = false)
     @JsonIgnore
-    private Persona usuario;
+    private Persona persona;
 
     public Educacion() {
     }
