@@ -74,10 +74,9 @@ public class CTrabajo {
         Trabajo trabajo = new Trabajo();
         if(editando){
             trabajo = trabServ.buscarTrabajo(id_trab);
+        } else {
+            trabajo.setPersona(persoServ.buscarPersona(id_usr));
         }
-        
-        // Busco el usuario
-        Persona usr = persoServ.buscarPersona(id_usr);
         
         // VERIFICO si ambas son fechas válida
         ZonedDateTime fecha_ini = errorServ.esFechaValida(trab.getFecha_ini());
@@ -119,7 +118,6 @@ public class CTrabajo {
         trabajo.setCompania(trab.getCompania());
         trabajo.setFecha_ini(fecha_ini);
         trabajo.setFecha_fin(fecha_fin);
-        trabajo.setPersona(usr);
         trabajo.setDescripcion(trab.getDescripcion());
         
         if(editando){

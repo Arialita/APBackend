@@ -77,11 +77,10 @@ public class CEducacion {
         Educacion educacion = new Educacion();
         if(editando){
             educacion = eduServ.buscarEducacion(id_edu);
+        } else {
+            educacion.setPersona(usrServ.buscarPersona(id_usr));
         }
-        
-        // Busco a qué usuario pertence
-        Persona usr = usrServ.buscarPersona(id_usr);
-        
+
         // VERIFICO si ambas son fechas válidas
         ZonedDateTime fecha_ini = errorServ.esFechaValida(edu.getFecha_ini());
         ZonedDateTime fecha_fin = errorServ.esFechaValida(edu.getFecha_fin());
@@ -118,7 +117,6 @@ public class CEducacion {
         educacion.setInstituto(edu.getInstituto());
         educacion.setFecha_ini(fecha_ini);
         educacion.setFecha_fin(fecha_fin);
-        educacion.setPersona(usr);
         
         if(editando) {
             return eduServ.editarEducacion(educacion);

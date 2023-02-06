@@ -62,7 +62,7 @@ public class MainSecurity {
                     "/educacion/ver", 
                     "/habilidad/ver", 
                     "/proyecto/ver", 
-                    "/trabajo/ver").permitAll()
+                    "/trabajo/ver").permitAll().requestMatchers("/redes/ver/**").permitAll()
             .anyRequest().authenticated();
 
      // fix H2 database console: Refused to display ' in a frame because it set 'X-Frame-Options' to 'deny'

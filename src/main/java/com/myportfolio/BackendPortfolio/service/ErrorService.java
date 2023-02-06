@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.myportfolio.BackendPortfolio.repository.PersonaRepository;
+import com.myportfolio.BackendPortfolio.repository.RedesRepository;
 
 @Service
 public class ErrorService implements IErrorService{
@@ -32,6 +33,9 @@ public class ErrorService implements IErrorService{
     
     @Autowired
     public ProyectoRepository proyRepo;
+    
+    @Autowired
+    public RedesRepository redesRepo;
 
     @Override
     public ResponseEntity<?> campoObligatorio(String campo) {
@@ -41,7 +45,10 @@ public class ErrorService implements IErrorService{
     @Override
     public ResponseEntity<?> longitudCampo(String length, String campo) {
         return new ResponseEntity(campo + " debe tener menos de " + length  + " carácteres", HttpStatus.BAD_REQUEST);
+        
     }
+    
+    
 
      @Override
     public boolean existeSeccion(Long id, String seccion) {
@@ -60,6 +67,10 @@ public class ErrorService implements IErrorService{
             }
             case "proy" -> {
                 return proyRepo.existsById(id);
+            }
+            
+            case "redes" -> {
+                return redesRepo.existsById(id);
             }
             default -> throw new AssertionError();
         }

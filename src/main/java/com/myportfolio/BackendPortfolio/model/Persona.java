@@ -51,6 +51,14 @@ public class Persona {
     @Column(length=255)
     private String acercaDe;
     
+    @Size(min=2, max=255)
+    @Column(length=255)
+    private String avatar;
+    
+    @Size(min=2, max=255)
+    @Column(length=255)
+    private String background;
+    
     // DESCOMENTAR SI SE CREA NUEVA PERSONA Y USUARIO
     /*@NotNull
     @OneToOne(mappedBy="persona")
@@ -68,18 +76,22 @@ public class Persona {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
     private List<Proyecto> proyecto;
     
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
+    private List<Redes> redes;
+    
 
     public Persona() {
     }
-    
-    public Persona(Long idUsr, String nombre, String apellido, String ocupacion, String localidad, String provincia, String acercaDe) {
-        this.idUsr = idUsr;
+
+    public Persona(String nombre, String apellido, String ocupacion, String localidad, String provincia, String acercaDe, String avatar, String background) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.ocupacion = ocupacion;
         this.localidad = localidad;
         this.provincia = provincia;
         this.acercaDe = acercaDe;
-    }  
-    
+        this.avatar = avatar;
+        this.background = background;
+    }    
 }

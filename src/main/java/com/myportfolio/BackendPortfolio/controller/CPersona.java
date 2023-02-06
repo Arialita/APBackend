@@ -77,6 +77,15 @@ public class CPersona {
             return errorServ.longitudCampo("255", "La descripción");
         }
         
+        if(StringUtils.length(persona.getAvatar())> 255) {
+            return errorServ.longitudCampo("255", "El avatar");
+        }
+        
+        if(StringUtils.length(persona.getBackground())> 255) {
+            return errorServ.longitudCampo("255", "La imagen de fondo");
+        }
+        
+        
         persona.setIdUsr(id_usr);
         
         return usrServ.editarPersona(persona, id_usr);

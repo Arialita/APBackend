@@ -7,16 +7,35 @@ public class PersonaDto {
     private String localidad;
     private String provincia;
     private String acercaDe;
+    private String avatar;
+    private String background;
 
-    public PersonaDto(String nombre, String apellido, String ocupacion, String localidad, String provincia, String acercaDe) {
+    public PersonaDto(String nombre, String apellido, String ocupacion, String localidad, String provincia, String acercaDe, String avatar, String background) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.ocupacion = ocupacion;
         this.localidad = localidad;
         this.provincia = provincia;
         this.acercaDe = acercaDe;
-    }   
-            
+        this.avatar = avatar;
+        this.background = background;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
 
     public String getNombre() {
         return nombre;
