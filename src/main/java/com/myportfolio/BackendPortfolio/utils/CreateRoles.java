@@ -1,5 +1,7 @@
 package com.myportfolio.BackendPortfolio.utils;
 
+import com.myportfolio.BackendPortfolio.security.entity.Rol;
+import com.myportfolio.BackendPortfolio.security.enums.RolNombre;
 import com.myportfolio.BackendPortfolio.security.service.RolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -20,8 +22,8 @@ public class CreateRoles implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        /**Rol rolAdmin = new Rol(RolNombre.ROLE_ADMIN);
-        rolService.save(rolAdmin);**/
+       /* Rol rolAdmin = new Rol(RolNombre.ROLE_ADMIN);
+        rolService.save(rolAdmin);*/
         
     }
 }
