@@ -55,6 +55,7 @@ public class Persona {
     @Column(length=255)
     private String background;
     
+    // inicializo tablas
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "persona", cascade = CascadeType.ALL)
     private List<Educacion> educacion;
     
