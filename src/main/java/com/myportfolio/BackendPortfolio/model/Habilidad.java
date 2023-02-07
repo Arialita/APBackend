@@ -12,10 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class Habilidad {
     @Id
@@ -49,6 +46,48 @@ public class Habilidad {
         this.nivel = nivel;
         this.nivel_nombre = nivel_nombre;
     }
+
+    public Long getId_hab() {
+        return id_hab;
+    }
+
+    public void setId_hab(Long id_hab) {
+        this.id_hab = id_hab;
+    }
+
+    public String getNombre_hab() {
+        return nombre_hab;
+    }
+
+    public void setNombre_hab(String nombre_hab) {
+        this.nombre_hab = nombre_hab;
+    }
+
+    public Long getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Long nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getNivel_nombre() {
+        return nivel_nombre;
+    }
+
+    public void setNivel_nombre(String nivel_nombre) {
+        this.nivel_nombre = nivel_nombre;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+    
+    
 
     
 }

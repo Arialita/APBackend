@@ -12,10 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import java.time.ZonedDateTime;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class Trabajo {
     @Id
@@ -56,4 +53,62 @@ public class Trabajo {
         this.fecha_fin = fecha_fin;
         this.descripcion = descripcion;
     }
+
+    public Long getId_trab() {
+        return id_trab;
+    }
+
+    public void setId_trab(Long id_trab) {
+        this.id_trab = id_trab;
+    }
+
+    public String getPuesto() {
+        return puesto;
+    }
+
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
+
+    public String getCompania() {
+        return compania;
+    }
+
+    public void setCompania(String compania) {
+        this.compania = compania;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public ZonedDateTime getFecha_ini() {
+        return fecha_ini;
+    }
+
+    public void setFecha_ini(ZonedDateTime fecha_ini) {
+        this.fecha_ini = fecha_ini;
+    }
+
+    public ZonedDateTime getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(ZonedDateTime fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+    
+    
 }

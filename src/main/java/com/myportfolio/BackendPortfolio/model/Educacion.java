@@ -15,7 +15,6 @@ import java.time.ZonedDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class Educacion {
     @Id
@@ -51,4 +50,54 @@ public class Educacion {
         this.fecha_ini = fecha_ini;
         this.fecha_fin = fecha_fin;
     }
+
+    public Long getId_edu() {
+        return id_edu;
+    }
+
+    public void setId_edu(Long id_edu) {
+        this.id_edu = id_edu;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getInstituto() {
+        return instituto;
+    }
+
+    public void setInstituto(String instituto) {
+        this.instituto = instituto;
+    }
+
+    public ZonedDateTime getFecha_ini() {
+        return fecha_ini;
+    }
+
+    public void setFecha_ini(ZonedDateTime fecha_ini) {
+        this.fecha_ini = fecha_ini;
+    }
+
+    public ZonedDateTime getFecha_fin() {
+        return fecha_fin;
+    }
+
+    public void setFecha_fin(ZonedDateTime fecha_fin) {
+        this.fecha_fin = fecha_fin;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+    
+    
 }

@@ -11,10 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter @Setter
 @Entity
 public class Proyecto {
     @Id
@@ -49,6 +46,47 @@ public class Proyecto {
         this.lenguaje = lenguaje;
     }
 
+    public Long getId_proyecto() {
+        return id_proyecto;
+    }
+
+    public void setId_proyecto(Long id_proyecto) {
+        this.id_proyecto = id_proyecto;
+    }
+
+    public String getNombre_proyecto() {
+        return nombre_proyecto;
+    }
+
+    public void setNombre_proyecto(String nombre_proyecto) {
+        this.nombre_proyecto = nombre_proyecto;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getLenguaje() {
+        return lenguaje;
+    }
+
+    public void setLenguaje(String lenguaje) {
+        this.lenguaje = lenguaje;
+    }
+
+    public Persona getPersona() {
+        return persona;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+    
+    
     
     
 }
