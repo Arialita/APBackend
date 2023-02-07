@@ -40,6 +40,7 @@ com\myportfolio\BackendPortfolio\security\jwt\JwtEntryPoint.class
 com\myportfolio\BackendPortfolio\security\dto\JwtDto.class
 com\myportfolio\BackendPortfolio\model\Educacion.class
 com\myportfolio\BackendPortfolio\model\Habilidad.class
+com\myportfolio\BackendPortfolio\WebConfig.class
 com\myportfolio\BackendPortfolio\security\repository\RolRepository.class
 com\myportfolio\BackendPortfolio\service\IHabilidadService.class
 com\myportfolio\BackendPortfolio\controller\CRedes.class
