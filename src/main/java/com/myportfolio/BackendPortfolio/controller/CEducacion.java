@@ -2,7 +2,6 @@ package com.myportfolio.BackendPortfolio.controller;
 
 import com.myportfolio.BackendPortfolio.dto.EducacionDto;
 import com.myportfolio.BackendPortfolio.model.Educacion;
-import com.myportfolio.BackendPortfolio.model.Persona;
 import com.myportfolio.BackendPortfolio.service.IEducacionService;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import java.time.ZonedDateTime;
