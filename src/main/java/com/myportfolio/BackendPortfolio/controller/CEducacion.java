@@ -22,8 +22,8 @@ import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
 @RequestMapping("/educacion")
-//@CrossOrigin(origins = "https://frontendportfolio-c9069.web.app")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontendportfolio-c9069.web.app")
+//@CrossOrigin(origins = "http://localhost:4200")
 public class CEducacion {
     @Autowired
     public IEducacionService eduServ;
