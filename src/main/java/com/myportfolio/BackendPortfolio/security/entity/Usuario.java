@@ -30,13 +30,6 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private Set<Rol> roles = new HashSet<>();
     
-    // DESCOMENTAR SI NECESITO CREAR NUEVO USUARIO
-    /*
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idUsr", referencedColumnName = "idUsr")
-    private Persona persona;*/
-    
     public Usuario() {
     }
 
