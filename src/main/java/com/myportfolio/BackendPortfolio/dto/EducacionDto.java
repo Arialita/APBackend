@@ -10,6 +10,9 @@ public class EducacionDto {
     
     private String fecha_fin;
 
+    public EducacionDto() {
+    }
+    
     public EducacionDto(String titulo, String instituto, String fecha_ini, String fecha_fin) {
         this.titulo = titulo;
         this.instituto = instituto;

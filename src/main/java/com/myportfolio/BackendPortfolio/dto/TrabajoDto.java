@@ -12,7 +12,10 @@ public class TrabajoDto {
     
     private String fecha_fin;
 
+    public TrabajoDto() {
+    }
 
+    
     public TrabajoDto(String puesto, String compania, String descripcion, String fecha_ini, String fecha_fin) {
         this.puesto = puesto;
         this.compania = compania;
