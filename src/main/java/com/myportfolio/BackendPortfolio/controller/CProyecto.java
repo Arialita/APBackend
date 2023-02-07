@@ -20,7 +20,7 @@ import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
 @RequestMapping("/proyecto")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontendportfolio-c9069.web.app")
 public class CProyecto {
     
     @Autowired

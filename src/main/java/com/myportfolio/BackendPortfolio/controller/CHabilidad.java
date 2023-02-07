@@ -20,7 +20,7 @@ import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
 @RequestMapping("/habilidad")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontendportfolio-c9069.web.app")
 public class CHabilidad {
     @Autowired
     public IHabilidadService habServ;

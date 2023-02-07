@@ -2,7 +2,6 @@ package com.myportfolio.BackendPortfolio.controller;
 
 import com.myportfolio.BackendPortfolio.dto.TrabajoDto;
 import com.myportfolio.BackendPortfolio.model.Trabajo;
-import com.myportfolio.BackendPortfolio.model.Persona;
 import com.myportfolio.BackendPortfolio.service.IErrorService;
 import com.myportfolio.BackendPortfolio.service.ITrabajoService;
 import java.time.ZonedDateTime;
@@ -23,7 +22,7 @@ import com.myportfolio.BackendPortfolio.service.IPersonaService;
 
 @RestController
 @RequestMapping("/trabajo")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://frontendportfolio-c9069.web.app")
 public class CTrabajo {
     @Autowired
     public ITrabajoService trabServ;
