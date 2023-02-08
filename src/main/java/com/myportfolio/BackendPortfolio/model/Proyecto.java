@@ -31,6 +31,14 @@ public class Proyecto {
     @Column(length=255)
     private String lenguaje;
     
+    @Size(max=255)
+    @Column(length=255)
+    private String descripcion;
+    
+    @Size(max=255)
+    @Column(length=255)
+    private String img;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usr", referencedColumnName = "idUsr", nullable = false)
     @JsonIgnore
@@ -39,11 +47,14 @@ public class Proyecto {
     public Proyecto() {
     }
 
-    public Proyecto(Long id_proyecto, String nombre_proyecto, String url, String lenguaje) {
+    public Proyecto(Long id_proyecto, String nombre_proyecto, String url, String lenguaje, String descripcion, String img) {
         this.id_proyecto = id_proyecto;
         this.nombre_proyecto = nombre_proyecto;
         this.url = url;
         this.lenguaje = lenguaje;
+        this.descripcion = descripcion;
+        this.img = img;
+        
     }
 
     public Long getId_proyecto() {
@@ -84,6 +95,22 @@ public class Proyecto {
 
     public void setPersona(Persona persona) {
         this.persona = persona;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
     

@@ -89,6 +89,8 @@ public class CProyecto {
         temp.setLenguaje(proy.getLenguaje());
         temp.setNombre_proyecto(proy.getNombre_proyecto());
         temp.setUrl(proy.getUrl());
+        temp.setDescripcion(proy.getDescripcion());
+        temp.setImg(proy.getImg());
         
         return proyServ.editarProyecto(temp);
     }
